@@ -88,6 +88,46 @@ while True:
         print("Exiting program.")
         break
     else:
+
+
+#Q4.5) Given a set of candidate numbers (C) and a target number (T), find all unique combinations in C re the candidate numbers sums to T. 
+#Example: Given candidate set 2,3,6,7 and target 7, A solution set is: [2, 2, 3] [7]
+
+# Candidate set and target
+candidates = [2, 3, 6, 7]
+target = 7
+
+# List to store the result combinations
+result = []
+
+# Sort candidates (optional, but useful for optimization)
+candidates.sort()
+
+# Backtracking approach
+def backtrack(remaining, combination, start):
+    # Base case: if the remaining target is 0, we found a valid combination
+    if remaining == 0:
+        result.append(list(combination))
+        return
+    # If remaining becomes negative, this path is not valid
+    elif remaining < 0:
+        return
+    
+    # Try each candidate starting from the 'start' index
+    for i in range(start, len(candidates)):
+        # Include the candidate in the current combination
+        combination.append(candidates[i])
+        # Since the same candidate can be used unlimited times, we pass i (not i+1)
+        backtrack(remaining - candidates[i], combination, i)
+        # Backtrack: remove the last candidate added
+        combination.pop()
+
+# Start backtracking with the initial target, empty combination, and starting index 0
+backtrack(target, [], 0)
+
+# Display the unique combinations
+print("Unique combinations summing to", target, "are:", result)
+
         print("Invalid choice! Please enter a valid option.")
 
 
