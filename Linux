@@ -1,0 +1,24 @@
+# 5). Linux:
+Q5.1) create a new folder “test_new” in the home directory.
+To cerate a new folder we usew mkdir ‘
+
+mkdir ~/test_new
+
+
+Q5.2) remove all permissions of the “test_new” directory.
+To remove all Permissins of the directory We use :
+
+chmod 000 ~/test_new
+
+
+Q5.3) create a “new.txt” file in the “test_new” directory. (with Q5.2, without making changes to permission)
+Since here all permissions are remove then we use root case:
+
+sudo touch ~/test_new/new.txt
+
+ 
+Q5.4) delete the “test_new” directory. (with Q5.2, without making changes to permission)
+Here also all permissions of test_new was remove then here also we use root case :
+
+sudo rm -rf ~/test_new
+
