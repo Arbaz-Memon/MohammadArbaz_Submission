@@ -25,6 +25,21 @@ int main()
 }
 //Q1.3) Write a MIN macro program that takes two arguments and returns the smallest of both arguments.
 
+#include <stdio.h>
+
+#define MIN(a, b) ((a) < (b) ? (a) : (b))  // Macro to return the minimum value
+
+int main() {
+    int x = 10, y = 20;
+    printf("Minimum of %d and %d is: %d\n", x, y, MIN(x, y));
+
+    float a = 5.5, b = 2.3;
+    printf("Minimum of %.2f and %.2f is: %.2f\n", a, b, MIN(a, b));
+
+    return 0;
+}
+
+
 //Q1.4) Write a C program to toggle a specific bit (e.g., bit 3) of an 8-bit unsigned integer without changing the other bits. Implement the program using bitwise operations.
 
 #include <stdio.h>
