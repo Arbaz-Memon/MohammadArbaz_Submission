@@ -1,0 +1,65 @@
+#3). OpenCV
+
+#Q3.1) Python | Play a video using OpenCV.(external camera)
+import cv2
+
+# Open external camera (use 1, 2, etc., if 1 doesn't work)
+cap = cv2.VideoCapture(1)
+
+if not cap.isOpened():
+    print("Error: Could not open external camera.")
+    exit()
+
+while True:
+    ret, frame = cap.read()  # Capture frame-by-frame
+    if not ret:
+        print("Failed to grab frame")
+        break
+
+    cv2.imshow("External Camera", frame)  # Show frame
+
+    # Press 'q' to exit
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cap.release()  # Release camera
+cv2.destroyAllWindows()  # Close all OpenCV windows
+
+
+#Q3.2) Python | Find Circles, and Ellipses in an Image using OpenCV
+
+import cv2
+import numpy as np
+
+# Load the image
+image = cv2.imread("shapes.jpg")
+output = image.copy()
+
+# Convert to grayscale
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+# Apply Gaussian blur to reduce noise
+gray = cv2.GaussianBlur(gray, (5, 5), 0)
+
+# Detect circles using HoughCircles
+circles = cv2.HoughCircles(gray, cv2.HOUGH_GRADIENT, dp=1.2, minDist=30,
+                           param1=50, param2=30, minRadius=5, maxRadius=100)
+
+if circles is not None:
+    circles = np.uint16(np.around(circles))  # Convert to integers
+    for (x, y, r) in circles[0, :]:
+        cv2.circle(output, (x, y), r, (0, 255, 0), 2)  # Draw circle
+        cv2.circle(output, (x, y), 2, (0, 0, 255), 3)  # Draw center
+
+# Find contours for ellipses
+contours, _ = cv2.findContours(gray, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+for cnt in contours:
+    if len(cnt) >= 5:  # Ellipses need at least 5 points
+        ellipse = cv2.fitEllipse(cnt)
+        cv2.ellipse(output, ellipse, (255, 0, 0), 2)  # Draw ellipse
+
+# Show the result
+cv2.imshow("Detected Circles and Ellipses", output)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
